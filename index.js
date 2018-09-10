@@ -105,7 +105,8 @@ app.post('/command', function(req, res) {
           {
             "type": "textarea",
             "label": "Summary",
-            "name": "summary"
+            "name": "summary",
+            "optional": true
           }
         ],
         state: {
@@ -135,7 +136,7 @@ app.post('/command', function(req, res) {
       },
       {
         key: 'summary',
-        value: payload.submission.summary,
+        value: (payload.submission.summary != null) ? payload.submission.summary : '',
       }
     ];
 
