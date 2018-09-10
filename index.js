@@ -127,7 +127,9 @@ app.post('/command', function(req, res) {
 
   if (payload.type == 'dialog_submission' && payload.callback_id == 'create_post') {
     let date = new Date();
-    let filename = date.getFullYear() + '-' + ('0' + date.getMonth()).slice(-2) + '-' + ('0' + date.getDate()).slice(-2) + '.md';
+    var today = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 ))
+      .toISOString()
+      .split("T")[0];
 
     let front_matter = [
       {
@@ -171,7 +173,7 @@ app.post('/command', function(req, res) {
         });
       })
       .then(() => createMessage(front_matter))
-      .then(content => githubCommit(content, filename))
+      .then(content => githubCommit(content, today))
       .then(message => postMessage(payload.channel.id));
 
     res.status(200);
