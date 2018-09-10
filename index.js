@@ -40,7 +40,8 @@ app.get('/oauth', function(req, res) {
 });
 
 app.post('/file-upload-event', (req, res) => {
-  if (req.body.event.file_id) {
+//  res.send(req.body.challenge);
+  if (req.body.event && req.body.event.file_id) {
     // Load file details.
     axios.get('https://slack.com/api/files.info', { params: {
         token: process.env.SLACK_ACCESS_TOKEN,
