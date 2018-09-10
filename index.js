@@ -50,7 +50,6 @@ app.post('/file-upload-event', (req, res) => {
       .then((file_info) => {
         if (file_info.data.file.mimetype.split('/')[0] == 'audio') {
           file_info.data.file.channels.forEach((channel) => {
-            console.log(channel);
             var shares = file_info.data.file.shares.public[channel];
             var share = shares[shares.length - 1];
             var update = {
@@ -117,10 +116,10 @@ app.post('/command', function(req, res) {
 
     axios.post('https://slack.com/api/dialog.open', qs.stringify(dialog), { headers: { Authorization: 'Bearer ' + process.env.SLACK_ACCESS_TOKEN } })
       .then((result) => {
-        console.log('dialog.open: %o', result.data);
+        //console.log('dialog.open: %o', result.data);
         res.send('');
       }).catch((err) => {
-        console.log('dialog.open call failed: %o', err);
+        //console.log('dialog.open call failed: %o', err);
         res.sendStatus(500);
       });
   }
