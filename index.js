@@ -126,8 +126,15 @@ app.post('/command', function(req, res) {
   }
 
   if (payload.type == 'dialog_submission' && payload.callback_id == 'create_post') {
-    let date = new Date();
-    var today = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 ))
+    var date = new Date();
+    var day = date.getDay();
+    var diff = date.getDate() - day;
+    date.setDate(diff);
+    date.setHours(10);
+    date.setMinutes(0);
+    date.setSeconds(0);
+    var sunday = new Date(date);
+    var filename = new Date(sunday.getTime() - (sunday.getTimezoneOffset() * 60000 ))
       .toISOString()
       .split("T")[0];
 
@@ -172,8 +179,8 @@ app.post('/command', function(req, res) {
           value: duration
         });
       })
-      .then(() => createMessage(front_matter))
-      .then(content => githubCommit(content, today))
+      .then(() => createMessage(front_matter, sunday.toUTCString()))
+      .then(content => githubCommit(content, filename))
       .then(message => postMessage(payload.channel.id));
 
     res.status(200);
