@@ -1,9 +1,14 @@
 {
+  "name": "crossSlackBot",
+  "version": "1.0.0",
   "scripts": {
     "tunnel": "ngrok http 4390",
-    "serve": "node index.js"
+    "serve": "node index.js",
+    "deploy": "claudia create --handler lambda.handler --deploy-proxy-api --region us-east-1 --profile=cross-slack-bot",
+    "update": "claudia update --handler lambda.handler --deploy-proxy-api --region us-east-1 --profile=cross-slack-bot"
   },
   "dependencies": {
+    "aws-serverless-express": "^3.3.5",
     "axios": "^0.18.0",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",

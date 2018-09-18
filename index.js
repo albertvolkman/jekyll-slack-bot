@@ -17,11 +17,6 @@ var app = express();
 app.use(express.json());
 app.use(express.urlencoded());
 
-// Start server
-app.listen(process.env.PORT, function () {
-  console.log("Listening on port " + process.env.PORT);
-});
-
 app.get('/oauth', function(req, res) {
   if (!req.query.code) {
     res.status(500);
@@ -187,3 +182,5 @@ app.post('/command', function(req, res) {
     res.send();
   }
 });
+
+module.exports = app;
