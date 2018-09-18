@@ -164,14 +164,14 @@ app.post('/command', function(req, res) {
       .then(() => {
         front_matter.push({
           key: 'file',
-          value: 'http://' + process.env.FTP_PATH + file_info.name
+          value: 'http://' + process.env.FTP_PATH + file_info.title
         });
         front_matter.push({
           key: 'length',
           value: file_info.size
         });
       })
-      .then(() => ftpFile(file, file_info.name))
+      .then(() => ftpFile(file, file_info.title))
       .then(() => getFileDuration(file))
       .then(duration => {
         front_matter.push({
